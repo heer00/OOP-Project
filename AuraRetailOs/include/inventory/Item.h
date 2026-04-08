@@ -9,6 +9,7 @@ public:
     virtual std::string getName() const = 0;
     virtual double getPrice() const = 0;
     virtual int getStock() const = 0;
+    virtual void setStock(int stock) = 0;
     virtual ~Item() {}
 };
 

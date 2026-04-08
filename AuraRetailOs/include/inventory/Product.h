@@ -11,11 +11,15 @@ private:
     int stock;
 
 public:
-    Product(std::string id, std::string name, double price, int stock);
+    Product(const std::string& id, const std::string& name, double price, int stock);
+
     std::string getId() const override;
     std::string getName() const override;
     double getPrice() const override;
     int getStock() const override;
+    void setStock(int stock) override;
+
+    Product* clone() const;
 };
 
 #endif
