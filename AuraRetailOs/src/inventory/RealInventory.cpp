@@ -1,4 +1,3 @@
-#include <iostream>
 #include "inventory/RealInventory.h"
 
 void RealInventory::addItem(Item* item) {
@@ -18,6 +17,5 @@ int RealInventory::getStock(const std::string& id) {
 void RealInventory::updateStock(const std::string& id, int newStock) {
     if (items.count(id)) {
         items[id]->setStock(newStock);
-        std::cout << "[RealInventory] Stock updated: " << id << " -> " << newStock << std::endl;
     }
 }

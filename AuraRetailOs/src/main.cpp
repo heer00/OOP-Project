@@ -3,9 +3,13 @@
 
 #include "inventory/Product.h"
 #include "inventory/Inventory.h"
+#include "inventory/RealInventory.h"
+#include "inventory/InventoryProxy.h"
+
 #include "payment/Payment.h"
 #include "payment/CardAdapter.h"
 #include "payment/UPIAdapter.h"
+
 #include "pricing/PricingPolicy.h"
 #include "pricing/StandardPricing.h"
 #include "pricing/DiscountPricing.h"
@@ -25,14 +29,15 @@ void performPurchase(Inventory& inv, const std::string& itemId,
         return;
     }
 
-    // Strategy Pattern: compute price using selected strategy
+    // Strategy Pattern: compute price
     double finalPrice = pricing->computePrice(item);
 
-    // Adapter Pattern: pay using selected payment method
+    // Adapter Pattern: payment
     bool success = payment->pay(finalPrice);
 
     if (success) {
-        inv.reduceStock(itemId);
+        int newStock = item->getStock() - 1;
+        inv.updateStock(itemId, newStock);
         std::cout << "[Kiosk] Purchase SUCCESS. Remaining stock: "
                   << item->getStock() << std::endl;
     } else {
@@ -43,32 +48,28 @@ void performPurchase(Inventory& inv, const std::string& itemId,
 int main() {
     std::cout << "========== Aura Retail OS - Subtask 2 Simulation ==========" << std::endl;
 
-    // --- Setup Inventory ---
-    Inventory inventory;
-    inventory.addItem(new Product("P001", "Mineral Water", 20.0, 5));
-    inventory.addItem(new Product("P002", "Chocolate Bar", 50.0, 3));
-    inventory.addItem(new Product("P003", "Aspirin Pack", 120.0, 2));
+    // --- Setup Inventory (Proxy Pattern) ---
+    RealInventory realInventory;
+    InventoryProxy inventory(&realInventory, "admin");
 
-    // --- Setup Pricing Strategies (Strategy Pattern) ---
+    inventory.addItem(new Product("P001", "Mineral Water",  20.0, 5));
+    inventory.addItem(new Product("P002", "Chocolate Bar",  50.0, 3));
+    inventory.addItem(new Product("P003", "Aspirin Pack",  120.0, 2));
+
+    // --- Pricing Strategies ---
     StandardPricing standard;
     DiscountPricing discount(0.15);   // 15% off
 
-    // --- Setup Payment Adapters (Adapter Pattern) ---
+    // --- Payment Methods ---
     CardAdapter cardPay;
-    UPIAdapter upiPay;
+    UPIAdapter  upiPay;
 
-    // Purchase 1: Water at standard price, paid by Card
-    performPurchase(inventory, "P001", &standard, &cardPay);
-
-    // Purchase 2: Chocolate with 15% discount, paid by UPI
-    performPurchase(inventory, "P002", &discount, &upiPay);
-
-    // Purchase 3: Aspirin at standard price, paid by UPI
-    performPurchase(inventory, "P003", &standard, &upiPay);
-
-    // Purchase 4: Try out-of-stock item (Aspirin, only 2 in stock)
-    performPurchase(inventory, "P003", &standard, &cardPay);
-    performPurchase(inventory, "P003", &standard, &cardPay); // should fail
+    // --- Simulations ---
+    performPurchase(inventory, "P001", &standard, &cardPay);  // Rs.20,  Card
+    performPurchase(inventory, "P002", &discount, &upiPay);   // Rs.42.5, UPI
+    performPurchase(inventory, "P003", &standard, &upiPay);   // Rs.120, UPI
+    performPurchase(inventory, "P003", &standard, &cardPay);  // Rs.120, Card
+    performPurchase(inventory, "P003", &standard, &cardPay);  // out of stock
 
     std::cout << "\n========== Simulation Complete ==========" << std::endl;
     return 0;
