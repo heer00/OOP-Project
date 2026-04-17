@@ -2,6 +2,7 @@
 #define BUNDLE_H
 
 #include <vector>
+#include <string>
 #include "inventory/Item.h"
 
 class Bundle : public Item {
@@ -14,10 +15,11 @@ public:
     Bundle(std::string id, std::string name);
     void addItem(Item* item);
 
-    std::string getId() const override;
+    std::string getId()   const override;
     std::string getName() const override;
-    double getPrice() const override;
-    int getStock() const override;
+    double getPrice()     const override;
+    int    getStock()     const override;
+    void   setStock(int stock) override;
 };
 
 #endif
