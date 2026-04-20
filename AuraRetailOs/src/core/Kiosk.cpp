@@ -48,3 +48,15 @@ Dispenser* Kiosk::getDispenser() const {
 PricingPolicy* Kiosk::getPricingPolicy() const {
     return pricing;
 }
+void Kiosk::refundTransaction(const std::string& transactionId) {
+    std::cout << "Refunding transaction: " << transactionId << "\n";
+}
+
+void Kiosk::restockInventory(const std::string& productId, int quantity) {
+    inventory->updateStock(productId, inventory->getStock(productId) + quantity);
+    std::cout << "Restocked " << productId << " with quantity " << quantity << "\n";
+}
+
+void Kiosk::runDiagnostics() {
+    std::cout << "Running diagnostics...\n";
+}

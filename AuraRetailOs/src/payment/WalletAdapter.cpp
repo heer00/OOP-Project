@@ -1,17 +1,18 @@
-  // src/payment/WalletAdapter.cpp
-  #include <iostream>
-  #include "payment/WalletAdapter.h"
-  
-  bool WalletAdapter::pay(double amount) {
-      std::cout << "[WalletAdapter] Translating pay() -> debitWallet()" << std::endl;
-      std::cout << "[Wallet SDK] debitWallet(Rs." << amount << ") -> SUCCESS" << std::endl;
-      return true;
-  }
-  
-  bool WalletAdapter::refund(const std::string& transactionId) {
-      std::cout << "[WalletAdapter] Crediting wallet for txn: " << transactionId << std::endl;
-      return true;
-  }
-  
-  std::string WalletAdapter::getStatus() const { return "Wallet:online"; }
- 
+#include "payment/WalletAdapter.h"
+#include <iostream>
+
+WalletAdapter::WalletAdapter(const std::string& userName) : user(userName) {}
+
+bool WalletAdapter::pay(double amount) {
+    std::cout << "Payment of " << amount << " done using wallet for user: " << user << "\n";
+    return true;
+}
+
+bool WalletAdapter::refund(const std::string& transactionId) {
+    std::cout << "Refund processed for transaction: " << transactionId << "\n";
+    return true;
+}
+
+std::string WalletAdapter::getStatus() const {
+    return "Wallet:online";
+}
