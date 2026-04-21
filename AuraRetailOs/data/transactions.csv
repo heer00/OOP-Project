@@ -1,0 +1,7 @@
+FAILED: Out of stock [101]
+SUCCESS: purchased [EMER001] for Rs.50.000000
+SUCCESS: purchased [EMER001] for Rs.50.000000
+RESTOCK: [EMER001] +50
+RESTOCK: [EMER001] +-50
+FAILED: Out of stock [MED002]
+SUCCESS: purchased [MED001] for Rs.120.000000
