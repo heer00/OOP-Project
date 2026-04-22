@@ -1,9 +1,9 @@
 [
   {"id": "EMER001", "name": "First Aid Kit", "price": 80, "stock": 20},
   {"id": "EMER002", "name": "Water Bottle", "price": 15, "stock": 50},
-  {"id": "FOOD001", "name": "Chips Pack", "price": 20, "stock": 100},
+  {"id": "FOOD001", "name": "Chips Pack", "price": 20, "stock": 90},
   {"id": "FOOD002", "name": "Cold Drink", "price": 35, "stock": 60},
   {"id": "FOOD003", "name": "Chocolate Bar", "price": 50, "stock": 80},
-  {"id": "MED001", "name": "Aspirin Pack", "price": 120, "stock": 50},
+  {"id": "MED001", "name": "Aspirin Pack", "price": 120, "stock": 49},
   {"id": "MED002", "name": "Vitamin C", "price": 80, "stock": 30}
 ]

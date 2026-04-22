@@ -21,7 +21,16 @@ void PurchaseItemCommand::execute() {
 
     int stock = inventory->getStock(productId);
 
-    if (stock <= 0) {
+    // FIX: getStock() returns -1 for a product that doesn't exist at all.
+    // The old check (stock <= 0) caught both -1 and 0 and printed "Out of stock"
+    // for invalid IDs, which was confusing. Now we check -1 first.
+    if (stock < 0) {
+        logMessage = "FAILED: Invalid product ID [" + productId + "]";
+        std::cout << "[Cmd] " << logMessage << std::endl;
+        return;
+    }
+
+    if (stock == 0) {
         logMessage = "FAILED: Out of stock [" + productId + "]";
         std::cout << "[Cmd] " << logMessage << std::endl;
         return;
@@ -47,14 +56,11 @@ void PurchaseItemCommand::execute() {
         return;
     }
 
+    // Step 2: Dispense — rollback if it fails
     if (!dispenser->dispense(productId)) {
         std::cout << "[Memento] ROLLBACK: dispense failed! Reversing payment." << std::endl;
-
         payment->refund("ROLLBACK-" + productId);
-
-        std::cout << "[Memento] Stock stays at: "
-                  << memento.stockBefore << std::endl;
-
+        std::cout << "[Memento] Stock stays at: " << memento.stockBefore << std::endl;
         logMessage = "ROLLED BACK: dispense error, payment reversed [" + productId + "]";
         std::cout << "[Cmd] " << logMessage << std::endl;
         return;
@@ -62,7 +68,6 @@ void PurchaseItemCommand::execute() {
 
     // Step 3: Commit
     inventory->updateStock(productId, stock - 1);
-
     logMessage = "SUCCESS: [" + productId + "] Rs." + std::to_string(finalPrice);
     std::cout << "[Cmd] " << logMessage << std::endl;
 }

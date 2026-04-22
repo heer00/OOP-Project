@@ -1,6 +1,9 @@
+#include "persistence/UserStore.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
+#include <limits>
 
 #include "core/KioskInterface.h"
 #include "core/Kiosk.h"
@@ -16,6 +19,7 @@
 #include "persistence/ConfigStore.h"
 #include "persistence/TransactionLog.h"
 #include "persistence/InventoryStore.h"
+#include "persistence/UserStore.h"
 
 #include "command/PurchaseItemCommand.h"
 #include "command/RestockCommand.h"
@@ -25,6 +29,11 @@
 #include "inventory/InventoryProxy.h"
 #include "inventory/CityMonitor.h"
 #include "inventory/Product.h"
+
+#include "payment/CardAdapter.h"
+#include "payment/UPIAdapter.h"
+#include "payment/WalletAdapter.h"
+#include "payment/UserWallet.h"
 
 struct ProductInfo { std::string id; std::string name; };
 
@@ -46,18 +55,73 @@ void printStock(const std::string& id, const std::string& name, int stock) {
     else                 std::cout << stock << " units\n";
 }
 
+int readInt() {
+    int val;
+    while (!(std::cin >> val)) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid input. Please enter a number: ";
+    }
+    return val;
+}
+
+std::string walletLogin(UserStore& userStore) {
+    std::cout << "\n[Wallet] 1. Login   2. Register\nChoice: ";
+    int wChoice = readInt();
+
+    if (wChoice == 1) {
+        std::string uname, pwd;
+        std::cout << "Username: "; std::cin >> uname;
+        std::cout << "Password: "; std::cin >> pwd;
+
+        if (!userStore.authenticate(uname, pwd)) {
+            std::cout << "[Wallet] Login failed: incorrect username or password.\n";
+            return "";
+        }
+        double bal = UserWallet::getInstance()->getBalance(uname);
+        std::cout << "[Wallet] Welcome, " << uname
+                  << "! Current balance: Rs." << bal << "\n";
+        return uname;
+
+    } else if (wChoice == 2) {
+        std::string uname, pwd;
+        std::cout << "Enter Your Username: "; std::cin >> uname;
+
+        if (userStore.exists(uname)) {
+            std::cout << "[Wallet] Username '" << uname
+                      << "' is already taken. Try a different one.\n";
+            return "";
+        }
+
+        std::cout << "Choose a password: "; std::cin >> pwd;
+
+        double deposit = 0.0;
+        std::cout << "Initial wallet deposit (Rs.): "; std::cin >> deposit;
+
+        userStore.registerUser(uname, pwd, deposit);
+        std::cout << "[Wallet] Account created! Welcome, " << uname << ".\n";
+        return uname;
+
+    } else {
+        std::cout << "[Wallet] Cancelled.\n";
+        return "";
+    }
+}
+
 int main() {
     ConfigStore config("data/config.json");
     config.load();
     TransactionLog txLog("data/transactions.csv");
 
+    UserStore userStore("data/users.json");
+    userStore.load();
+
     std::string kioskType;
-    std::cout << "Select kiosk type [food / pharmacy / emergency]: ";
+    std::cout << "\nSelect kiosk type [food / pharmacy / emergency]: ";
     std::cin >> kioskType;
 
     KioskFactory* factory = KioskFactorySimple::createFactory(kioskType);
 
-    // Load inventory from JSON — this IS the stock source of truth
     RealInventory* realInv = new RealInventory();
     InventoryStore invStore("data/inventory.json");
     invStore.load(realInv);
@@ -80,33 +144,83 @@ int main() {
     std::vector<ProductInfo> products = getProductList(kioskType);
 
     int choice = 0;
-    while (choice != 5) {
+    while (choice != 6) {
         std::cout << "\n--- Aura Kiosk Menu [" << kioskType << "] ---\n"
                   << "1. Buy item\n"
                   << "2. View stock\n"
                   << "3. Restock item\n"
                   << "4. Run diagnostics\n"
-                  << "5. Exit\n"
+                  << "5. Check wallet balance\n"
+                  << "6. Exit\n"
                   << "Choice: ";
-        std::cin >> choice;
+        choice = readInt();
 
         // ── 1. BUY ───────────────────────────────────────────────
         if (choice == 1) {
             std::string pid, method;
             std::cout << "Product ID: "; std::cin >> pid;
-            std::cout << "Payment method [card/upi/wallet]: "; std::cin >> method;
+            std::cout << "Payment method [card / upi / wallet]: "; std::cin >> method;
+
+            Payment* chosenPayment = nullptr;
+            bool ownsPayment = false;
+
+            if (method == "wallet") {
+                std::string loggedInUser = walletLogin(userStore);
+                if (loggedInUser.empty()) {
+                    std::cout << "[Payment] Wallet login failed. Purchase cancelled.\n";
+                    continue;
+                }
+
+                double bal = UserWallet::getInstance()->getBalance(loggedInUser);
+                std::cout << "[Wallet] Balance: Rs." << bal << "\n";
+
+                double topup = 0.0;
+                std::cout << "Top-up before purchase? (Rs., 0 to skip): ";
+                std::cin >> topup;
+                if (topup > 0.0) {
+                    UserWallet::getInstance()->topUp(loggedInUser, topup);
+                    userStore.save();
+                }
+
+                chosenPayment = new WalletAdapter(loggedInUser);
+                ownsPayment   = true;
+
+            } else if (method == "card") {
+                std::cout << "[Card] Enter card number (16 digits): ";
+                std::string cardNum; std::cin >> cardNum;
+                std::cout << "[Card] Enter CVV: ";
+                std::string cvv; std::cin >> cvv;
+                std::cout << "[Card] Details accepted.\n";
+                chosenPayment = new CardAdapter();
+                ownsPayment   = true;
+
+            } else if (method == "upi") {
+                std::cout << "[UPI] Enter UPI ID (e.g. name@upi): ";
+                std::string upiId; std::cin >> upiId;
+                std::cout << "[UPI] ID accepted: " << upiId << "\n";
+                chosenPayment = new UPIAdapter();
+                ownsPayment   = true;
+
+            } else {
+                std::cout << "[Payment] Unknown method '" << method
+                          << "'. Valid options: card, upi, wallet.\n";
+                continue;
+            }
 
             PurchaseItemCommand cmd(pid,
                 baseKiosk->getInventory(),
-                baseKiosk->getPayment(),
+                chosenPayment,
                 baseKiosk->getDispenser(),
                 baseKiosk->getPricingPolicy());
             cmd.execute();
             txLog.append(cmd.getLog());
 
-            // Save to JSON only if purchase succeeded
-            if (cmd.getLog().find("SUCCESS") != std::string::npos)
+            if (cmd.getLog().find("SUCCESS") != std::string::npos) {
                 invStore.save(realInv);
+                if (method == "wallet") userStore.save();
+            }
+
+            if (ownsPayment) delete chosenPayment;
         }
 
         // ── 2. VIEW STOCK ─────────────────────────────────────────
@@ -133,13 +247,12 @@ int main() {
         else if (choice == 3) {
             std::string pid; int qty;
             std::cout << "Product ID: "; std::cin >> pid;
-            std::cout << "Quantity: "; std::cin >> qty;
+            std::cout << "Quantity: "; qty = readInt();
 
             RestockCommand cmd(pid, qty, baseKiosk->getInventory());
             cmd.execute();
             txLog.append(cmd.getLog());
 
-            // Show final stock + save to JSON only if restock succeeded
             if (cmd.getLog().find("RESTOCK") != std::string::npos) {
                 int s = realInv->getStock(pid);
                 std::string name = "Unknown";
@@ -156,11 +269,28 @@ int main() {
             kiosk->runDiagnostics();
         }
 
-        else if (choice != 5) {
-            std::cout << "Invalid choice. Enter 1-5.\n";
+        // ── 5. CHECK WALLET BALANCE ───────────────────────────────
+        else if (choice == 5) {
+            std::cout << "\n[Wallet Balance Check]\n";
+            std::string uname, pwd;
+            std::cout << "Username: "; std::cin >> uname;
+            std::cout << "Password: "; std::cin >> pwd;
+
+            if (!userStore.authenticate(uname, pwd)) {
+                std::cout << "[Wallet] Login failed: incorrect username or password.\n";
+            } else {
+                double bal = UserWallet::getInstance()->getBalance(uname);
+                std::cout << "[Wallet] Account: " << uname
+                          << " | Balance: Rs." << bal << "\n";
+            }
+        }
+
+        else if (choice != 6) {
+            std::cout << "Invalid choice. Enter 1-6.\n";
         }
     }
 
+    userStore.save();
     std::cout << "[Aura Kiosk] Shutting down.\n";
     delete factory;
     return 0;

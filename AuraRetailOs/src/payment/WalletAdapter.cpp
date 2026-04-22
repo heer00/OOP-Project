@@ -1,24 +1,31 @@
+#include "payment/WalletAdapter.h"
+#include "payment/UserWallet.h"
 #include <iostream>
-  #include "payment/WalletAdapter.h"
-  #include "payment/UserWallet.h"
-   
-  WalletAdapter::WalletAdapter(const std::string& uid) : userId(uid), lastAmount(0) {}
-   
-  bool WalletAdapter::pay(double amount) {
-      std::cout << "[WalletAdapter] debitWallet(" << userId << ", Rs." << amount << ")" << std::endl;
-      bool ok = UserWallet::getInstance()->debit(userId, amount);
-      if (ok) lastAmount = amount;
-      return ok;  // returns FALSE if insufficient balance -- payment declined
-  }
-   
-  bool WalletAdapter::refund(const std::string& txnId) {
-      std::cout << "[WalletAdapter] Refunding Rs." << lastAmount << " to " << userId << std::endl;
-      UserWallet::getInstance()->credit(userId, lastAmount);
-      return true;
-  }
-   
-  std::string WalletAdapter::getStatus() const {
-      double b = UserWallet::getInstance()->getBalance(userId);
-      return "Wallet:" + userId + " Rs." + std::to_string((int)b);
-  }
- 
+
+WalletAdapter::WalletAdapter(const std::string& uid)
+    : userId(uid), lastAmount(0.0) {}
+
+bool WalletAdapter::pay(double amount) {
+    lastAmount = amount;
+
+    bool ok = UserWallet::getInstance()->deduct(userId, amount);
+
+    if (ok)
+        std::cout << "[Wallet] Payment successful\n";
+    else
+        std::cout << "[Wallet] Insufficient balance\n";
+
+    return ok;
+}
+
+bool WalletAdapter::refund(const std::string& reason) {
+    UserWallet::getInstance()->topUp(userId, lastAmount);
+
+    std::cout << "[Wallet] Refund processed\n";
+    return true;
+}
+
+// 🔥 REQUIRED IMPLEMENTATION
+std::string WalletAdapter::getStatus() const {
+    return "Wallet payment processed";
+}

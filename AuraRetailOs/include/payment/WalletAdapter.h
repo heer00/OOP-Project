@@ -1,5 +1,5 @@
-#ifndef WALLET_ADAPTER_H
-#define WALLET_ADAPTER_H
+#ifndef WALLETADAPTER_H
+#define WALLETADAPTER_H
 
 #include <string>
 #include "payment/Payment.h"
@@ -13,8 +13,10 @@ public:
     WalletAdapter(const std::string& uid);
 
     bool pay(double amount) override;
-    bool refund(const std::string& txnId) override;
+    bool refund(const std::string& reason) override;
 
-std::string getStatus() const override;};
+    // 🔥 THIS WAS MISSING
+    std::string getStatus() const override;
+};
 
 #endif
