@@ -884,6 +884,33 @@ src/payment/UPIAdapter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/payment/UPIAdapter.cpp.s
 .PHONY : src/payment/UPIAdapter.cpp.s
 
+src/payment/UserWallet.obj: src/payment/UserWallet.cpp.obj
+.PHONY : src/payment/UserWallet.obj
+
+# target to build an object file
+src/payment/UserWallet.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsCli.dir\build.make CMakeFiles/AuraRetailOsCli.dir/src/payment/UserWallet.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/payment/UserWallet.cpp.obj
+.PHONY : src/payment/UserWallet.cpp.obj
+
+src/payment/UserWallet.i: src/payment/UserWallet.cpp.i
+.PHONY : src/payment/UserWallet.i
+
+# target to preprocess a source file
+src/payment/UserWallet.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsCli.dir\build.make CMakeFiles/AuraRetailOsCli.dir/src/payment/UserWallet.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/payment/UserWallet.cpp.i
+.PHONY : src/payment/UserWallet.cpp.i
+
+src/payment/UserWallet.s: src/payment/UserWallet.cpp.s
+.PHONY : src/payment/UserWallet.s
+
+# target to generate assembly for a file
+src/payment/UserWallet.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsCli.dir\build.make CMakeFiles/AuraRetailOsCli.dir/src/payment/UserWallet.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/payment/UserWallet.cpp.s
+.PHONY : src/payment/UserWallet.cpp.s
+
 src/payment/WalletAdapter.obj: src/payment/WalletAdapter.cpp.obj
 .PHONY : src/payment/WalletAdapter.obj
 
@@ -991,6 +1018,33 @@ src/persistence/TransactionLog.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsCli.dir\build.make CMakeFiles/AuraRetailOsCli.dir/src/persistence/TransactionLog.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/persistence/TransactionLog.cpp.s
 .PHONY : src/persistence/TransactionLog.cpp.s
+
+src/persistence/UserStore.obj: src/persistence/UserStore.cpp.obj
+.PHONY : src/persistence/UserStore.obj
+
+# target to build an object file
+src/persistence/UserStore.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsCli.dir\build.make CMakeFiles/AuraRetailOsCli.dir/src/persistence/UserStore.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/persistence/UserStore.cpp.obj
+.PHONY : src/persistence/UserStore.cpp.obj
+
+src/persistence/UserStore.i: src/persistence/UserStore.cpp.i
+.PHONY : src/persistence/UserStore.i
+
+# target to preprocess a source file
+src/persistence/UserStore.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsCli.dir\build.make CMakeFiles/AuraRetailOsCli.dir/src/persistence/UserStore.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/persistence/UserStore.cpp.i
+.PHONY : src/persistence/UserStore.cpp.i
+
+src/persistence/UserStore.s: src/persistence/UserStore.cpp.s
+.PHONY : src/persistence/UserStore.s
+
+# target to generate assembly for a file
+src/persistence/UserStore.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsCli.dir\build.make CMakeFiles/AuraRetailOsCli.dir/src/persistence/UserStore.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\AuraRetailOsGui.dir\build.make CMakeFiles/AuraRetailOsGui.dir/src/persistence/UserStore.cpp.s
+.PHONY : src/persistence/UserStore.cpp.s
 
 src/pricing/DiscountPricing.obj: src/pricing/DiscountPricing.cpp.obj
 .PHONY : src/pricing/DiscountPricing.obj
@@ -1166,6 +1220,9 @@ help:
 	@echo ... src/payment/UPIAdapter.obj
 	@echo ... src/payment/UPIAdapter.i
 	@echo ... src/payment/UPIAdapter.s
+	@echo ... src/payment/UserWallet.obj
+	@echo ... src/payment/UserWallet.i
+	@echo ... src/payment/UserWallet.s
 	@echo ... src/payment/WalletAdapter.obj
 	@echo ... src/payment/WalletAdapter.i
 	@echo ... src/payment/WalletAdapter.s
@@ -1178,6 +1235,9 @@ help:
 	@echo ... src/persistence/TransactionLog.obj
 	@echo ... src/persistence/TransactionLog.i
 	@echo ... src/persistence/TransactionLog.s
+	@echo ... src/persistence/UserStore.obj
+	@echo ... src/persistence/UserStore.i
+	@echo ... src/persistence/UserStore.s
 	@echo ... src/pricing/DiscountPricing.obj
 	@echo ... src/pricing/DiscountPricing.i
 	@echo ... src/pricing/DiscountPricing.s

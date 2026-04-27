@@ -1,16 +1,15 @@
 CMakeFiles/AuraRetailOsCli.dir/main.cpp.obj: \
  C:\Users\kbs38\Desktop\Desktop\ Files\College\DA\AuraRetailOS-ModularKioskSystem\AuraRetailOs\main.cpp \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iostream \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/persistence/UserStore.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/string \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/pstl/pstl_config.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ostream \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ios \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iosfwd \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stringfwd.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/memoryfwd.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/char_traits.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/postypes.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cwchar \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h \
@@ -26,58 +25,26 @@ CMakeFiles/AuraRetailOsCli.dir/main.cpp.obj: \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/_mingw_stat64.h \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/swprintf.inl \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sec_api/wchar_s.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/exception \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/exception.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/exception_ptr.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/exception_defines.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/cxxabi_init_exception.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/stddef.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/crtdefs.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/typeinfo \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/hash_bytes.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/new \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/type_traits \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/nested_exception.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/char_traits.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/allocator.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++allocator.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/new_allocator.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/new \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/exception.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/functexcept.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/exception_defines.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/move.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/cpp_type_traits.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/localefwd.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++locale.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/clocale \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/locale.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/crtdefs.h \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/stdio.h \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iosfwd \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cctype \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/ctype.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ios_base.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ext/atomicity.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/gthr.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/gthr-default.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/errno.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/types.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/process.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/corecrt_startup.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/limits.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/signal.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_signal.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/timeb.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/_timeval.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_time.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_compat.h \
- C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_unistd.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/atomic_word.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/locale_classes.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/string \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/allocator.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++allocator.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/new_allocator.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/functexcept.h \
- C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/cpp_type_traits.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ostream_insert.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/cxxabi_forced.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_iterator_base_funcs.h \
@@ -106,14 +73,19 @@ CMakeFiles/AuraRetailOsCli.dir/main.cpp.obj: \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_construct.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/string_view \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/functional_hash.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/hash_bytes.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/string_view.tcc \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ext/string_conversions.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstdlib \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/stdlib.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/limits.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/syslimits.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/limits.h \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/stdlib.h \
  C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/malloc.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/errno.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/std_abs.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstdio \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cerrno \
@@ -121,9 +93,45 @@ CMakeFiles/AuraRetailOsCli.dir/main.cpp.obj: \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/basic_string.tcc \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/memory_resource.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstddef \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stddef.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/stddef.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/uses_allocator.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/uses_allocator_args.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/tuple \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/map \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_tree.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ext/aligned_buffer.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/node_handle.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_map.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_multimap.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/erase_if.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iostream \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ostream \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ios \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/exception \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/exception_ptr.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/cxxabi_init_exception.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/typeinfo \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/nested_exception.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ios_base.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ext/atomicity.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/gthr.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/gthr-default.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/types.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/process.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/corecrt_startup.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/signal.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_signal.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/timeb.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sec_api/sys/timeb_s.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/_timeval.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_time.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_compat.h \
+ C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread_unistd.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/atomic_word.h \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/locale_classes.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/locale_classes.tcc \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/system_error \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/error_constants.h \
@@ -142,26 +150,42 @@ CMakeFiles/AuraRetailOsCli.dir/main.cpp.obj: \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ostream.tcc \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/istream \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/KioskInterface.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/Kiosk.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/KioskBuilder.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/factory/KioskFactorySimple.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/factory/KioskFactory.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/SolarModule.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/KioskModule.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/NetworkModule.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/vector \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_uninitialized.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_vector.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_bvector.h \
  C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/vector.tcc \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/limits \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ctime \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/sstream \
+ C:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/sstream.tcc \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/KioskInterface.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/Kiosk.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/KioskBuilder.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/CentralRegistry.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/factory/KioskFactorySimple.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/factory/KioskFactory.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/SolarModule.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/KioskModule.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/NetworkModule.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/src/persistence/ConfigStore.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/src/persistence/TransactionLog.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/PurchaseItemCommand.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/Command.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/persistence/InventoryStore.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/RealInventory.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/Inventory.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/Item.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/PurchaseItemCommand.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/Command.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/InventoryMemento.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/payment/Payment.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/Dispenser.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/pricing/PricingPolicy.h \
- C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/RestockCommand.h
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/RestockCommand.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/InventoryProxy.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/StockObserver.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/CityMonitor.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/Product.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/payment/CardAdapter.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/payment/UPIAdapter.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/payment/WalletAdapter.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/payment/UserWallet.h

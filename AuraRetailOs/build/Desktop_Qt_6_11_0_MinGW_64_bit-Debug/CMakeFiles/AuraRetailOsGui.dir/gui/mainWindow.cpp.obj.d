@@ -422,7 +422,7 @@ CMakeFiles/AuraRetailOsGui.dir/gui/mainWindow.cpp.obj: \
  C:/Qt/6.11.0/mingw_64/include/QtCore/QString \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/Kiosk.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/core/KioskInterface.h \
- C:/Users/kbs38/Desktop/Desktop\ Files/College/DA/AuraRetailOS-ModularKioskSystem/AuraRetailOs/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/AuraRetailOsGui_autogen/include/ui_mainwindow.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/build/DESKTO~1/AURARE~1/include/ui_mainwindow.h \
  C:/Qt/6.11.0/mingw_64/include/QtCore/QVariant \
  C:/Qt/6.11.0/mingw_64/include/QtWidgets/QApplication \
  C:/Qt/6.11.0/mingw_64/include/QtWidgets/qapplication.h \
@@ -476,6 +476,7 @@ CMakeFiles/AuraRetailOsGui.dir/gui/mainWindow.cpp.obj: \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/inventory/Item.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/PurchaseItemCommand.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/Command.h \
+ C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/InventoryMemento.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/hardware/Dispenser.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/pricing/PricingPolicy.h \
  C:/Users/kbs38/Desktop/DESKTO~1/College/DA/AURARE~1/AURARE~1/include/command/RefundCommand.h \
