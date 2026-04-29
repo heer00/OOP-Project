@@ -1,23 +1,56 @@
 #include <iostream>
 #include "command/PurchaseItemCommand.h"
 #include "inventory/Item.h"
+#include "hardware/SolarModule.h"
+#include "hardware/NetworkModule.h"
+#include "hardware/KioskModule.h"
+
 
 PurchaseItemCommand::PurchaseItemCommand(
     const std::string& pid,
+    KioskInterface* k,
     Inventory* inv,
     Payment* pay,
     Dispenser* dis,
     PricingPolicy* pr
 )
     : productId(pid),
+      kiosk(k),
       inventory(inv),
       payment(pay),
       dispenser(dis),
       pricingPolicy(pr),
       logMessage("Not executed") {}
 
+
 void PurchaseItemCommand::execute() {
     std::cout << "\n--- PurchaseItemCommand: " << productId << " ---" << std::endl;
+
+    // Pre-check decorators (Scenario B: Solar Battery Block)
+    KioskInterface* current = kiosk;
+    while (current) {
+        SolarModule* solar = dynamic_cast<SolarModule*>(current);
+        if (solar && solar->getBatteryLevel() < 20) {
+            logMessage = "FAILED: [SolarModule] BLOCKED -- battery too low (" + std::to_string(solar->getBatteryLevel()) + "%)";
+            std::cout << "[Cmd] " << logMessage << std::endl;
+            return;
+        }
+
+        NetworkModule* net = dynamic_cast<NetworkModule*>(current);
+        if (net && net->isOffline()) {
+            // Note: NetworkModule handles its own queuing if called directly via purchaseItem.
+            // But since we are in a Command, we just block or queue here.
+            // For simplicity, let's just mark as blocked if offline in this command context.
+            logMessage = "FAILED: [NetworkModule] BLOCKED -- system offline";
+            std::cout << "[Cmd] " << logMessage << std::endl;
+            return;
+        }
+
+        KioskModule* mod = dynamic_cast<KioskModule*>(current);
+        if (mod) current = mod->getWrappedKiosk();
+        else break;
+    }
+
 
     int stock = inventory->getStock(productId);
 

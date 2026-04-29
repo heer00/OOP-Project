@@ -41,7 +41,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    Kiosk* kiosk;
+    KioskInterface* kiosk;
+    Kiosk* baseKiosk;
+
     UserStore* userStore;
     QString currentUserId;
     QString lastKioskType;
@@ -81,7 +83,14 @@ private:
 
     QTextEdit* adminLogBox;
     
+    // Simulation Controls
+    QSpinBox* batterySlider;
+    QPushButton* btnSetBattery;
+
     void setupProgrammaticUI();
+
+    Kiosk* getBaseKiosk();
+
 };
 
 #endif

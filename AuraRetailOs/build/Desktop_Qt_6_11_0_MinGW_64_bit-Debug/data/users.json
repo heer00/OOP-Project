@@ -1,5 +1,6 @@
 [
-  {"username": "Cust1", "password": "1234", "balance": 100},
+  {"username": "Cust1", "password": "1234", "balance": 20},
+  {"username": "Cust2", "password": "1234", "balance": 104},
   {"username": "Ishpreet", "password": "ishu", "balance": 383.25},
   {"username": "alice", "password": "alice123", "balance": 500},
   {"username": "bansari_1", "password": "hello@123", "balance": 53},

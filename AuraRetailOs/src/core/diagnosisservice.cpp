@@ -1,20 +1,61 @@
 #include "core/diagnosisservice.h"
 #include "inventory/Inventory.h"
+#include "core/Kiosk.h"
+#include "hardware/SolarModule.h"
+#include "hardware/NetworkModule.h"
+#include "hardware/KioskModule.h"
 #include <sstream>
 #include <vector>
 
-DiagnosisReport DiagnosisService::runFullCheck(Kiosk* kiosk) {
+DiagnosisReport DiagnosisService::runFullCheck(KioskInterface* kiosk) {
     DiagnosisReport report;
     std::ostringstream oss;
     
     int totalProducts = 0;
     int lowStockCount = 0;
+    int battery = 100;
+    bool offline = false;
+    bool solarFound = false;
     
-    if (kiosk && kiosk->getInventory()) {
-        std::vector<std::string> ids = kiosk->getInventory()->getAllProductIds();
+    // Unwrap the decorator chain to find real data
+    KioskInterface* current = kiosk;
+    Inventory* inv = nullptr;
+
+    while (current) {
+        // Try to find SolarModule
+        SolarModule* solar = dynamic_cast<SolarModule*>(current);
+        if (solar) {
+            battery = solar->getBatteryLevel();
+            solarFound = true;
+        }
+
+        // Try to find NetworkModule
+        NetworkModule* net = dynamic_cast<NetworkModule*>(current);
+        if (net) {
+            offline = net->isOffline();
+        }
+
+        // Try to find the base Kiosk (to get inventory)
+        Kiosk* base = dynamic_cast<Kiosk*>(current);
+        if (base) {
+            inv = base->getInventory();
+            break; // Reached the bottom
+        }
+
+        // Move down the chain if it's a module
+        KioskModule* mod = dynamic_cast<KioskModule*>(current);
+        if (mod) {
+            current = mod->getWrappedKiosk();
+        } else {
+            break;
+        }
+    }
+    
+    if (inv) {
+        std::vector<std::string> ids = inv->getAllProductIds();
         totalProducts = ids.size();
         for (const auto& id : ids) {
-            if (kiosk->getInventory()->getStock(id) < 5) { // Threshold for low stock
+            if (inv->getStock(id) < 5) {
                 lowStockCount++;
             }
         }
@@ -30,8 +71,8 @@ DiagnosisReport DiagnosisService::runFullCheck(Kiosk* kiosk) {
 
     oss << "[Optional Modules]\n";
     oss << "Refrigeration       : ON\n";
-    oss << "Solar Module        : Charging\n";
-    oss << "Network Module      : <span style=\"color:#4caf50\">Online</span>\n\n";
+    oss << "Solar Module        : " << (solarFound ? (std::to_string(battery) + "%") : "Not Installed") << "\n";
+    oss << "Network Module      : " << (offline ? "<span style=\"color:#f44336\">Offline</span>" : "<span style=\"color:#4caf50\">Online</span>") << "\n\n";
 
     oss << "[Payment Systems]\n";
     oss << "UPI                 : <span style=\"color:#4caf50\">Available</span>\n";
@@ -51,4 +92,5 @@ DiagnosisReport DiagnosisService::runFullCheck(Kiosk* kiosk) {
     report.fullReport = oss.str();
     return report;
 }
+
 

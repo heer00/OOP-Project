@@ -2,7 +2,7 @@
 #define DIAGNOSISSERVICE_H
 
 #include <string>
-#include "core/Kiosk.h"
+#include "core/KioskInterface.h"
 
 class DiagnosisReport {
 public:
@@ -11,8 +11,9 @@ public:
 
 class DiagnosisService {
 public:
-    DiagnosisReport runFullCheck(Kiosk* kiosk);
+    DiagnosisReport runFullCheck(KioskInterface* kiosk);
 };
 
 #endif
+
 

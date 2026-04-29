@@ -26,7 +26,10 @@ public:
         wrappedKiosk->runDiagnostics();
     }
 
+    KioskInterface* getWrappedKiosk() const { return wrappedKiosk; }
+
     virtual ~KioskModule() {}
+
 };
 
 #endif

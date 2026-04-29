@@ -354,9 +354,10 @@ int main() {
         .addPricingPolicy(factory->createPricingPolicy())
         .build();
 
-    KioskInterface* kiosk = baseKiosk;
-    kiosk = new SolarModule(kiosk, 100);
-    kiosk = new NetworkModule(kiosk, false);
+    SolarModule* solar = new SolarModule(baseKiosk, 100);
+    NetworkModule* network = new NetworkModule(solar, false);
+    KioskInterface* kiosk = network;
+
 
     std::vector<ProductInfo> products = getProductList(kioskType);
 
@@ -426,10 +427,12 @@ int main() {
             }
 
             PurchaseItemCommand cmd(pid,
+                kiosk, // Decorated kiosk
                 baseKiosk->getInventory(),
                 chosenPayment,
                 baseKiosk->getDispenser(),
                 baseKiosk->getPricingPolicy());
+
             cmd.execute();
             txLog.append(cmd.getLog());
 
@@ -512,7 +515,9 @@ int main() {
                       << "B. Restock item\n"
                       << "C. Stock alerts\n"
                       << "D. View transaction log\n"
+                      << "S. Simulation Settings\n"
                       << "E. Back\n"
+
                       << "Choice: ";
             std::string adminChoice; std::cin >> adminChoice;
 
@@ -555,11 +560,25 @@ int main() {
                 auto lines = txLog.readAll();
                 if (lines.empty()) {
                     std::cout << "  No transactions recorded yet.\n";
-                } else {
-                    for (auto& l : lines) std::cout << "  " << l << "\n";
+                }
+            } else if (adminChoice == "S" || adminChoice == "s") {
+                std::cout << "\n--- Simulation Settings ---\n"
+                          << "1. Set Solar Battery %\n"
+                          << "2. Toggle Network Status\n"
+                          << "Choice: ";
+                int sChoice = readInt();
+                if (sChoice == 1) {
+                    std::cout << "Enter Battery % (0-100): ";
+                    int b = readInt();
+                    solar->setBatteryLevel(b);
+                    std::cout << "[Sim] Battery set to " << b << "%\n";
+                } else if (sChoice == 2) {
+                    network->setOffline(!network->isOffline());
+                    std::cout << "[Sim] Network is now " << (network->isOffline() ? "OFFLINE" : "ONLINE") << "\n";
                 }
             }
         }
+
 
         else if (choice != 7) {
             std::cout << "Invalid choice. Enter 1-7.\n";

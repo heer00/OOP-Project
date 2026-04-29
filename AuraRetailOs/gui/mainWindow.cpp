@@ -23,7 +23,11 @@
 #include "command/RestockCommand.h"
 #include "persistence/TransactionLog.h"
 #include "persistence/ConfigStore.h"
+#include "hardware/SolarModule.h"
+#include "hardware/NetworkModule.h"
+#include "hardware/KioskModule.h"
 #include <vector>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -215,6 +219,20 @@ void MainWindow::setupProgrammaticUI() {
     adminActionsLayout2->addWidget(btnRunDiagnosis);
     adminLayout->addLayout(adminActionsLayout2);
 
+    // Simulation Section (New)
+    adminLayout->addSpacing(10);
+    adminLayout->addWidget(new QLabel("--- Simulation Controls ---"));
+    QHBoxLayout* simLayout = new QHBoxLayout();
+    batterySlider = new QSpinBox();
+    batterySlider->setRange(0, 100);
+    batterySlider->setValue(100);
+    btnSetBattery = new QPushButton("Set Battery %");
+    simLayout->addWidget(new QLabel("Simulate Battery:"));
+    simLayout->addWidget(batterySlider);
+    simLayout->addWidget(btnSetBattery);
+    adminLayout->addLayout(simLayout);
+
+
 
     adminLayout->addWidget(adminLogBox);
     adminLayout->addWidget(btnAdminBack);
@@ -239,7 +257,25 @@ void MainWindow::setupProgrammaticUI() {
 
     connect(btnCustBack, &QPushButton::clicked, this, &MainWindow::onBackToMainClicked);
     connect(btnAdminBack, &QPushButton::clicked, this, &MainWindow::onBackToMainClicked);
+    
+    // New: Battery simulation
+    connect(btnSetBattery, &QPushButton::clicked, this, [this](){
+        KioskInterface* current = kiosk;
+        while (current) {
+            SolarModule* solar = dynamic_cast<SolarModule*>(current);
+            if (solar) {
+                solar->setBatteryLevel(batterySlider->value());
+                adminLogBox->append(QString("<span style=\"color:#4caf50;\">[Sim] Battery set to %1%</span>").arg(batterySlider->value()));
+                return;
+            }
+            KioskModule* mod = dynamic_cast<KioskModule*>(current);
+            if (mod) current = mod->getWrappedKiosk();
+            else break;
+        }
+        adminLogBox->append("<span style=\"color:#f44336;\">[Sim] SolarModule not found in this kiosk.</span>");
+    });
 }
+
 
 void MainWindow::onRoleCustomerClicked() {
     currentUserId = userIdInput->text().trimmed();
@@ -258,22 +294,28 @@ void MainWindow::onRoleCustomerClicked() {
     if (!kiosk || type != lastKioskType) {
         if (kiosk) delete kiosk;
         KioskFactory* factory = KioskFactorySimple::createFactory(type.toStdString());
-        kiosk = KioskBuilder()
+        baseKiosk = KioskBuilder()
             .addDispenser(factory->createDispenser())
             .addPayment(factory->createPayment())
             .addInventory(factory->createInventory())
             .addPricingPolicy(factory->createPricingPolicy())
             .build();
+        
+        // Wrap with decorators
+        kiosk = new NetworkModule(new SolarModule(baseKiosk, 100), false);
+        
         delete factory;
         lastKioskType = type;
     }
+
     
     // Refresh product list in case it changed
     productDropdown->clear();
-    std::vector<std::string> products = kiosk->getInventory()->getAllProductIds();
+    std::vector<std::string> products = getBaseKiosk()->getInventory()->getAllProductIds();
     for (const auto& p : products) {
         productDropdown->addItem(QString::fromStdString(p));
     }
+
 
     mainStack->setCurrentIndex(1); // Go to Customer Page
     custLogBox->append(QString("<span style=\"color:#888888;\">[%1]</span> Logged in as Customer: %2")
@@ -294,15 +336,20 @@ void MainWindow::onRoleAdminClicked() {
     if (!kiosk || type != lastKioskType) {
         if (kiosk) delete kiosk;
         KioskFactory* factory = KioskFactorySimple::createFactory(type.toStdString());
-        kiosk = KioskBuilder()
+        baseKiosk = KioskBuilder()
             .addDispenser(factory->createDispenser())
             .addPayment(factory->createPayment())
             .addInventory(factory->createInventory())
             .addPricingPolicy(factory->createPricingPolicy())
             .build();
+        
+        // Wrap with decorators
+        kiosk = new NetworkModule(new SolarModule(baseKiosk, 100), false);
+
         delete factory;
         lastKioskType = type;
     }
+
 
     mainStack->setCurrentIndex(2); // Go to Admin Page
     adminLogBox->append(QString("<span style=\"color:#888888;\">[%1]</span> Logged in as Admin: %2")
@@ -329,7 +376,7 @@ void MainWindow::onBuyClicked() {
     if (!ok || method.isEmpty()) return; // User cancelled
 
     if (method == "Wallet") {
-        kiosk->setPayment(new WalletAdapter(currentUserId.toStdString()));
+        getBaseKiosk()->setPayment(new WalletAdapter(currentUserId.toStdString()));
     } else if (method == "UPI") {
         QString mobile = QInputDialog::getText(this, "UPI Payment", "Enter mobile number for UPI (10 digits):", QLineEdit::Normal, "", &ok);
         bool isNum = false;
@@ -338,7 +385,7 @@ void MainWindow::onBuyClicked() {
             QMessageBox::warning(this, "Validation Error", "Mobile number must be exactly 10 digits.");
             return;
         }
-        kiosk->setPayment(new UPIAdapter());
+        getBaseKiosk()->setPayment(new UPIAdapter());
     } else if (method == "Card") {
         QString cardLast4 = QInputDialog::getText(this, "Card Payment", "Enter card last 4 digits:", QLineEdit::Normal, "", &ok);
         bool isNum = false;
@@ -347,25 +394,25 @@ void MainWindow::onBuyClicked() {
             QMessageBox::warning(this, "Validation Error", "Card pin must be exactly 4 digits.");
             return;
         }
-        kiosk->setPayment(new CardAdapter());
+        getBaseKiosk()->setPayment(new CardAdapter());
     }
 
     std::string txnId = "TXN" + QDateTime::currentDateTime().toString("mmsszzz").toStdString();
 
     for (int i = 0; i < qty; ++i) {
+        Kiosk* base = getBaseKiosk();
         PurchaseItemCommand cmd(product.toStdString(),
-
-                                kiosk->getInventory(),
-                                kiosk->getPayment(),
-                                kiosk->getDispenser(),
-                                kiosk->getPricingPolicy());
+                                kiosk, // Decorated kiosk for pre-checks
+                                base->getInventory(),
+                                base->getPayment(),
+                                base->getDispenser(),
+                                base->getPricingPolicy());
         cmd.execute();
         
         std::string logResult = cmd.getLog();
         logResult = "[User: " + currentUserId.toStdString() + "] [ID: " + txnId + "] " + logResult;
         TransactionLog txLog("data/transactions.csv");
         txLog.append(logResult);
-
 
         QString timeStr = QDateTime::currentDateTime().toString("hh:mm:ss");
         QString color = (logResult.find("SUCCESS") != std::string::npos) ? "#4caf50" : "#f44336";
@@ -378,8 +425,8 @@ void MainWindow::onBuyClicked() {
                              .arg(timeStr, color, status, QString::fromStdString(logResult), QString::fromStdString(txnId));
 
         custLogBox->append(logMsg);
-
     }
+
     
     if (method == "Wallet") {
         userStore->save();
@@ -412,8 +459,9 @@ void MainWindow::onRefundClicked() {
         return;
     }
 
-    RefundCommand cmd(txn.toStdString(), pid.toStdString(), kiosk->getPayment(), kiosk->getInventory());
+    RefundCommand cmd(txn.toStdString(), pid.toStdString(), getBaseKiosk()->getPayment(), getBaseKiosk()->getInventory());
     cmd.execute();
+
 
     std::string logResult = cmd.getLog();
     TransactionLog txLog("data/transactions.csv");
@@ -445,8 +493,9 @@ void MainWindow::onRestockClicked() {
         return;
     }
 
-    RestockCommand cmd(product.toStdString(), qty, kiosk->getInventory());
+    RestockCommand cmd(product.toStdString(), qty, getBaseKiosk()->getInventory());
     cmd.execute();
+
 
     std::string logResult = cmd.getLog();
     TransactionLog txLog("data/transactions.csv");
@@ -467,16 +516,18 @@ void MainWindow::onRestockClicked() {
 }
 
 void MainWindow::onViewStockClicked() {
-    if (!kiosk || !kiosk->getInventory()) return;
+    Kiosk* base = getBaseKiosk();
+    if (!base || !base->getInventory()) return;
     adminLogBox->append(QString("<br/><span style=\"color:#2196f3; font-weight:bold;\">--- Current Stock Status ---</span>"));
-    std::vector<std::string> products = kiosk->getInventory()->getAllProductIds();
+    std::vector<std::string> products = base->getInventory()->getAllProductIds();
     for (const auto& p : products) {
-        int stock = kiosk->getInventory()->getStock(p);
+        int stock = base->getInventory()->getStock(p);
         QString line = QString("Product ID: <b>%1</b> | Stock: <b>%2</b>")
                            .arg(QString::fromStdString(p)).arg(stock);
         adminLogBox->append(line);
     }
 }
+
 
 void MainWindow::onViewTransactionsClicked() {
     adminLogBox->append(QString("<br/><span style=\"color:#ff9800; font-weight:bold;\">--- Transaction Log (data/transactions.csv) ---</span>"));
@@ -536,4 +587,17 @@ void MainWindow::onTopUpWalletClicked() {
 void MainWindow::onRunDiagnosisClicked() {
     DiagnosisDialog dialog(kiosk, this);
     dialog.exec();
+}
+
+Kiosk* MainWindow::getBaseKiosk() {
+    KioskInterface* current = kiosk;
+    while (current) {
+        Kiosk* base = dynamic_cast<Kiosk*>(current);
+        if (base) return base;
+        
+        KioskModule* mod = dynamic_cast<KioskModule*>(current);
+        if (mod) current = mod->getWrappedKiosk();
+        else break;
+    }
+    return nullptr;
 }
