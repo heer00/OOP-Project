@@ -442,41 +442,53 @@ void MainWindow::onRefundClicked() {
         return;
     }
 
-    // Check if user has made any purchases first
+    // Check if user has made this specific purchase and if it's already refunded
     TransactionLog txLogCheck("data/transactions.csv");
     auto lines = txLogCheck.readAll();
-    bool userPurchased = false;
+    int purchaseCount = 0;
+    int refundCount = 0;
     for (const auto& l : lines) {
+        if (l.find("REFUNDED: txn=" + txn.toStdString() + " product=" + pid.toStdString()) != std::string::npos) {
+            refundCount++;
+        }
         if (l.find("[User: " + currentUserId.toStdString() + "]") != std::string::npos && 
+            l.find("[ID: " + txn.toStdString() + "]") != std::string::npos &&
+            l.find("[" + pid.toStdString() + "]") != std::string::npos &&
             l.find("SUCCESS") != std::string::npos) {
-            userPurchased = true;
-            break;
+            purchaseCount++;
         }
     }
     
-    if (!userPurchased) {
-        QMessageBox::warning(this, "Refund Error", "Nothing to refund, please buy something first.");
+    if (purchaseCount == 0) {
+        QMessageBox::warning(this, "Refund Error", "Invalid Transaction ID or Product ID. Purchase not found.");
         return;
     }
 
-    RefundCommand cmd(txn.toStdString(), pid.toStdString(), getBaseKiosk()->getPayment(), getBaseKiosk()->getInventory());
-    cmd.execute();
+    int itemsToRefund = purchaseCount - refundCount;
+    if (itemsToRefund <= 0) {
+        QMessageBox::warning(this, "Refund Error", "All items for this transaction have already been refunded.");
+        return;
+    }
 
+    for (int i = 0; i < itemsToRefund; ++i) {
+        RefundCommand cmd(txn.toStdString(), pid.toStdString(), getBaseKiosk()->getPayment(), getBaseKiosk()->getInventory());
+        cmd.execute();
 
-    std::string logResult = cmd.getLog();
-    TransactionLog txLog("data/transactions.csv");
-    txLog.append(logResult);
+        std::string logResult = cmd.getLog();
+        TransactionLog txLog("data/transactions.csv");
+        txLog.append(logResult);
 
-    QString timeStr = QDateTime::currentDateTime().toString("hh:mm:ss");
-    QString color = (logResult.find("REFUNDED") != std::string::npos) ? "#ff9800" : "#f44336";
-    QString status = (logResult.find("REFUNDED") != std::string::npos) ? "REFUND" : "FAILED";
+        QString timeStr = QDateTime::currentDateTime().toString("hh:mm:ss");
+        QString color = (logResult.find("REFUNDED") != std::string::npos) ? "#ff9800" : "#f44336";
+        QString status = (logResult.find("REFUNDED") != std::string::npos) ? "REFUND" : "FAILED";
 
-    QString logMsg = QString("<span style=\"color:#888888;\">[%1]</span> "
-                             "<span style=\"color:%2; font-weight:bold;\">%3</span>: %4 "
-                             "<br/><span style=\"color:#ffeb3b; font-size:10px;\">[Patterns: Command, Adapter]</span>")
-                         .arg(timeStr, color, status, QString::fromStdString(logResult));
+        QString logMsg = QString("<span style=\"color:#888888;\">[%1]</span> "
+                                 "<span style=\"color:%2; font-weight:bold;\">%3</span>: %4 "
+                                 "<br/><span style=\"color:#ffeb3b; font-size:10px;\">[Patterns: Command, Adapter]</span>")
+                             .arg(timeStr, color, status, QString::fromStdString(logResult));
 
-    custLogBox->append(logMsg);
+        custLogBox->append(logMsg);
+    }
     transactionInput->clear();
     refundProductIdInput->clear();
     

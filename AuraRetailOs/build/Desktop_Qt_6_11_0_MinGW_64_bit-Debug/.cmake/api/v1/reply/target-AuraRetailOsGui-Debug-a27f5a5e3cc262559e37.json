@@ -357,11 +357,11 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "AuraRetailOsGui_autogen::@6890427a1f51a3e7e1df"
+			"id" : "AuraRetailOsGui_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "AuraRetailOsGui_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 0,
+			"id" : "AuraRetailOsGui_autogen::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "AuraRetailOsGui::@6890427a1f51a3e7e1df",

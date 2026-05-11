@@ -1,10 +1,9 @@
 [
-  {"username": "CUST001", "password": "1234", "balance": 0},
   {"username": "Ishpreet", "password": "ishu", "balance": 383.25},
   {"username": "alice", "password": "alice123", "balance": 500},
   {"username": "bansari_1", "password": "hello@123", "balance": 53},
   {"username": "bob", "password": "bob456", "balance": 250},
   {"username": "carol", "password": "carol789", "balance": 1000},
-  {"username": "cust001", "password": "1234", "balance": 351},
+  {"username": "cust001", "password": "1234", "balance": 170},
   {"username": "heer_1", "password": "hi@123", "balance": 488.25}
 ]

@@ -25,6 +25,7 @@
       int current = inventory->getStock(productId);
       if (current >= 0) {
           inventory->updateStock(productId, current + 1);
+          std::cout << "[Refund] Stock restored for " << productId << std::endl;
           logMessage = "REFUNDED: txn=" + transactionId
                      + " product=" + productId + " stock restored";
       } else {
